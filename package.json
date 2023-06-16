@@ -15,6 +15,7 @@
   "dependencies": {
     "@prisma/client": "^4.15.0-dev.30",
     "@prisma/migrate": "^4.14.0",
+    "@turf/turf": "^6.5.0",
     "@types/jsonwebtoken": "^9.0.2",
     "@types/vscode": "^1.78.1",
     "aws-sdk": "^2.1398.0",
