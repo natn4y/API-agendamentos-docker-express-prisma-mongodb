@@ -72,40 +72,40 @@ model Endereco {
 //! -----> SERVICO
 
 model Salao {
-  id       String  @id @default(uuid()) @map("_id")
-  nome     String  @unique
-  foto     String?
-  capa     String?
-  email    String?
-  senha    String?
-  telefone String?
+  id            String       @id @default(uuid()) @map("_id")
+  nome          String       @unique
+  foto          String?
+  capa          String?
+  email         String?
+  senha         String?
+  telefone      String?
+  dataCadastro  DateTime     @default(now())
 
-  dataCadastro DateTime @default(now())
-
-  enderecoId String? @unique @default(uuid())
-
+  enderecoId    String?      @unique @default(uuid())
   salaoColaborador SalaoColaborador?
   salaoClient      SalaoClient?
   agendamento      Agendamento?
 
-  endereco Endereco?  @relation(fields: [enderecoId], references: [id])
-  geo      Geo[]     @relation("SalaoToGeo")
-  servicos Servico[] @relation("SalaoToServico")
-  horarios Horario[] @relation("SalaoToHorario")
+  endereco      Endereco?    @relation(fields: [enderecoId], references: [id])
+  geo           Geo?
+
+  servicos      Servico[]    @relation("SalaoToServico")
+  horarios      Horario[]    @relation("SalaoToHorario")
 
   @@map("salao")
 }
 
 model Geo {
-  id          String   @id @default(uuid()) @map("_id")
-  tipo        String
-  coordinates String[]
-  salaoId     String
+  id            String       @id @default(uuid()) @map("_id")
+  tipo          String
+  coordinates   Float[]
+  salaoId       String       @unique
 
-  salao Salao? @relation("SalaoToGeo", fields: [salaoId], references: [id])
+  salao         Salao        @relation(fields: [salaoId], references: [id])
 
   @@map("geo")
 }
+
 
 //! -----> COLABORADOR
 
@@ -262,4 +262,11 @@ model Agendamento {
   colaborador Colaborador @relation(fields: [colaboradorId], references: [id])
 
   @@map("agendamento")
+}
+
+model arquivo {
+  id            String   @id @default(uuid()) @map("_id")
+  model String
+  caminho String
+  dataCadastro DateTime  @default(now())
 }
