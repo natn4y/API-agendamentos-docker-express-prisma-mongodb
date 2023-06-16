@@ -3,14 +3,16 @@ import morgan from 'morgan'
 import os from 'os';
 import salaoRoutes from './routes/salao.routes';
 import cors from 'cors'
+import serviceRoutes from './routes/service.routes';
 
 const app = express();
 
-app.use(cors)
+app.use(cors())
 app.use(express.json())
 app.use(morgan('dev'))
 
 app.use('/salao', salaoRoutes);
+app.use('/service', serviceRoutes);
 
 app.get('/', (req: Request, res: Response) => {
   return res.json({
