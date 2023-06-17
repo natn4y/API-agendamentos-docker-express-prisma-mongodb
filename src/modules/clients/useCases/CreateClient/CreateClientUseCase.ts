@@ -1,50 +1,65 @@
-import { hash } from 'bcrypt'
-import { prisma } from '../../../../database/prismaClient';
+import { hash } from 'bcrypt';
+import { PrismaClient } from '@prisma/client';
+
+const prisma = new PrismaClient();
 
 interface ICreateClient {
-  username: string;
-  password: string;
+  nome: string;
+  senha: string;
+  dataNascimento: string;
+  email: string;
+  foto: string;
+  telefone: string;
+  documentoId: string;
+  enderecoId: string;
 }
 
 class CreateClientUseCase {
-  async execute({ username, password }: ICreateClient) {
-    // Testar conexão com o banco de dados
+  async execute({
+    nome,
+    senha,
+    dataNascimento,
+    email,
+    foto,
+    telefone,
+    enderecoId,
+    documentoId,
+  }: ICreateClient) {
     try {
-      await prisma.$connect();
-      console.log('\nCONNECTED TO DATABASE!\n');
-    } catch (error) {
-      console.log(error);
-    }
-
-    // Validar se o usuário existe
-    const clientExist = await prisma.clients.findFirst({
-      where: {
-        username: {
-          equals: username,
-          mode: 'insensitive',
+      const existingClient = await prisma.cliente.findFirst({
+        where: {
+          nome: {
+            equals: nome,
+            mode: 'insensitive',
+          },
         },
-      },
-    });
+      });
 
-    if (clientExist) {
-      throw new Error("Client already exists");
-    }
-
-    // Criptografar a senha
-    const hashPassword = await hash(password, 10);
-
-    // Salvar o client
-    const client = await prisma.clients.create({
-      data: {
-        username,
-        password: hashPassword,
-        created_at: new Date().toISOString(),
-        isAdmin: false,
+      if (existingClient) {
+        throw new Error("Client already exists");
       }
-    })
 
-    return client;
+      const hashPassword = await hash(senha, 10);
+
+      const newClient = await prisma.cliente.create({
+        data: {
+          nome,
+          senha: hashPassword,
+          dataNascimento,
+          email,
+          foto,
+          telefone,
+          documentoId,
+          enderecoId,
+        },
+      });
+
+      return newClient;
+    } catch (error) {
+      console.error('Erro ao cadastrar cliente', error);
+      throw error;
+    }
   }
 }
 
-export { CreateClientUseCase }
+export { CreateClientUseCase };
