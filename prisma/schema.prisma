@@ -24,13 +24,13 @@ generator client {
 //! -----> CLIENTE
 
 model Cliente {
-  id             String   @id @default(uuid()) @map("_id")
+  id             String @id @default(uuid()) @map("_id")
   nome           String
   telefone       String
   email          String
-  status         String   @default("A")
-  sexo           String   @default("M")
-  dataNascimento DateTime
+  status         String @default("A")
+  sexo           String @default("M")
+  dataNascimento String
   foto           String
   senha          String
   documentoId    String
@@ -109,27 +109,30 @@ model Geolocalization {
 //! -----> COLABORADOR
 
 model Colaborador {
-  id              String   @id @default(uuid()) @map("_id")
-  nome            String
-  telefone        String
-  email           String
-  senha           String
-  foto            String
-  dataNascimento  DateTime
-  sexo            String   @default("M")
-  status          String   @default("A")
-  ContaBancariaId String   @unique
-  dataCadastro    DateTime @default(now())
-  RecipientId     String   @unique
-  horarioId       String?
-
+  id                 String              @id @default(uuid()) @map("_id")
+  nome               String
+  telefone           String
+  email              String
+  senha              String
+  foto               String
+  dataNascimento     String
+  sexo               String              @default("M")
+  status             String              @default("A")
+  ContaBancariaId    String              @unique
+  dataCadastro       DateTime            @default(now())
+  recipientId        String              @unique
+  horarioId          String?
+  colaboradorId      String?
+  especialidadesId   String[]            @unique
+  vinculo            String
   salaoColaborador   SalaoColaborador?
   colaboradorServico ColaboradorServico?
   agendamento        Agendamento?
 
-  horario       Horario?      @relation(fields: [horarioId], references: [id])
-  contaBancaria ContaBancaria @relation(fields: [ContaBancariaId], references: [id])
-  recipientId   Recipient     @relation(fields: [RecipientId], references: [id])
+  especialidades Servico       @relation(fields: [especialidadesId], references: [id])
+  horario        Horario?
+  contaBancaria  ContaBancaria @relation(fields: [ContaBancariaId], references: [id])
+  recipient      Recipient     @relation(fields: [recipientId], references: [id])
 
   @@map("colaborador")
 }
@@ -155,7 +158,7 @@ model Recipient {
 
   colaborador Colaborador?
 
-  @@map("Recipient")
+  @@map("recipient")
 }
 
 //! -----> SERVICO
@@ -175,22 +178,25 @@ model Servico {
   colaboradorServico ColaboradorServico?
   agendamento        Agendamento?
 
-  salao   Salao    @relation("SalaoToServico", fields: [salaoId], references: [id])
-  horario Horario? @relation(fields: [horarioId], references: [id])
+  salao       Salao        @relation("SalaoToServico", fields: [salaoId], references: [id])
+  horario     Horario?
+  Colaborador Colaborador?
 
   @@map("servico")
 }
 
 model Horario {
-  id             String        @id @default(uuid()) @map("_id")
-  salaoId        String
-  especialidades Servico[]
-  colaboradores  Colaborador[]
-  dias           Int[]
-  inicio         DateTime
-  fim            DateTime
+  id               String   @id @default(uuid()) @map("_id")
+  salaoId          String
+  especialidadesId String[] @unique
+  colaboradoresId  String[] @unique
+  dias             Int[]
+  inicio           String
+  fim              String
 
-  salao Salao @relation("SalaoToHorario", fields: [salaoId], references: [id])
+  salao          Salao       @relation("SalaoToHorario", fields: [salaoId], references: [id])
+  especialidades Servico     @relation(fields: [especialidadesId], references: [id])
+  colaboradores  Colaborador @relation(fields: [colaboradoresId], references: [id])
 
   @@map("horario")
 }
@@ -202,6 +208,7 @@ model SalaoColaborador {
   salaoId       String   @unique
   colaboradorId String   @unique
   status        String
+
   dataCadastro  DateTime @default(now())
 
   salao       Salao       @relation(fields: [salaoId], references: [id])
@@ -250,7 +257,7 @@ model Agendamento {
   colaboradorId String   @unique
   status        String
   dataCadastro  DateTime @default(now())
-  data          DateTime
+  data          String
   comissao      Float
   valor         Float
   transactionId String
