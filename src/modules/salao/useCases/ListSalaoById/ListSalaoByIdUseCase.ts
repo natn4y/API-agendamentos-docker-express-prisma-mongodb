@@ -3,7 +3,7 @@ import { distance, Coord } from '@turf/turf';
 
 class ListAllSalaoByUseCase {
   async execute(salaoId: string) {
-    const salao = await prisma.salao.findFirst({
+    const saloes = await prisma.saloes.findFirst({
       where: {
         id: salaoId,
       },
@@ -26,14 +26,14 @@ class ListAllSalaoByUseCase {
 
     let response;
 
-    if (salao && salao.geo && salao.geo.coordinates) {
+    if (saloes && saloes.geo && saloes.geo.coordinates) {
       const salaoPoint: Coord = {
         type: 'Point',
-        coordinates: salao.geo.coordinates,
+        coordinates: saloes.geo.coordinates,
       };
 
       const calculatedDistance = distance(salaoPoint, targetPoint);
-      const { id, nome, capa, geo } = salao;
+      const { id, nome, capa, geo } = saloes;
 
       response = {
         id,
@@ -43,8 +43,8 @@ class ListAllSalaoByUseCase {
         distance: calculatedDistance,
       };
     } else {
-      // Lógica para lidar com o caso em que salao.geo.coordinates é nulo
-      const { id, nome, capa } = salao!;
+      // Lógica para lidar com o caso em que saloes.geo.coordinates é nulo
+      const { id, nome, capa } = saloes!;
 
       response = {
         id,

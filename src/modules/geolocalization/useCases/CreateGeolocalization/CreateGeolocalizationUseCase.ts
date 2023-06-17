@@ -13,7 +13,7 @@ class CreateGeolocalizationUseCase {
     salaoId,
   }: ICreateSalao) {
     try {
-      const geolocalizationExist = await prisma.geolocalization.findFirst({
+      const geolocalizationExist = await prisma.geolocalizations.findFirst({
         where: {
           salaoId: {
             equals: salaoId,
@@ -23,10 +23,10 @@ class CreateGeolocalizationUseCase {
       });
 
       if (geolocalizationExist) {
-        throw new Error("Geolocalization already exists");
+        throw new Error("Geolocalizations already exists");
       }
 
-      const res = await prisma.geolocalization.create({
+      const res = await prisma.geolocalizations.create({
         data: {
           tipo,
           coordinates,
@@ -38,7 +38,7 @@ class CreateGeolocalizationUseCase {
 
     } catch (error) {
       console.log(error);
-      throw new Error("Erro ao cadastrar Geolocalization");
+      throw new Error("Erro ao cadastrar Geolocalizations");
     }
   }
 }

@@ -23,7 +23,7 @@ class CreateSalaoUseCase {
     enderecoId,
   }: ICreateSalao) {
     try {
-      const salaoExist = await prisma.salao.findFirst({
+      const salaoExist = await prisma.saloes.findFirst({
         where: {
           nome: {
             equals: nome,
@@ -36,7 +36,7 @@ class CreateSalaoUseCase {
         throw new Error("Salão already exists");
       }
 
-      const res = await prisma.salao.create({
+      const res = await prisma.saloes.create({
         data: {
           nome,
           foto,

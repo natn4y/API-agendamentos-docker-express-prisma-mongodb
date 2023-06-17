@@ -10,7 +10,7 @@
 
 //       const result = await authenticateDeliverymanUseCase.execute({ username, password });
 
-//       console.log('Cliente autenticado com sucesso!');
+//       console.log('Clientes autenticado com sucesso!');
 //       return response.status(200).json(result);
 //     } catch (error) {
 //       console.log(error);

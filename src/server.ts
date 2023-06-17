@@ -17,12 +17,12 @@ app.use(express.json())
 app.use(morgan('dev'))
 
 app.use('/salao', salaoRoutes);
-app.use('/service', serviceRoutes);
+app.use('/services', serviceRoutes);
 app.use('/horario', horarioRoutes);
-app.use('/geolocalization', geolocalizationRoutes);
-app.use('/colaborador', colaboradorRoutes);
+app.use('/geolocalizations', geolocalizationRoutes);
+app.use('/colaboradores', colaboradorRoutes);
 app.use('/client', ClientRoutes);
-app.use("/salaocolaborador", salaoColaboradorRoutes)
+app.use("/salaocolaboradores", salaoColaboradorRoutes)
 
 app.get('/', (req: Request, res: Response) => {
   return res.json({

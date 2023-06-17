@@ -25,7 +25,7 @@ class CreateServiceUseCase {
     dataCadastro,
   }: ICreateService) {
     try {
-      const servicoExist = await prisma.servico.findFirst({
+      const servicoExist = await prisma.servicos.findFirst({
         where: {
           titulo: {
             equals: titulo,
@@ -40,7 +40,7 @@ class CreateServiceUseCase {
         throw new Error("Service already exists");
       }
 
-      const res = await prisma.servico.create({
+      const res = await prisma.servicos.create({
         data: {
           salaoId,
           titulo,

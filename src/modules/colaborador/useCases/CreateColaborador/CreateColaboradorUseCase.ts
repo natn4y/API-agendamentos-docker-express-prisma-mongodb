@@ -26,7 +26,7 @@ class CreateColaboradorUseCase {
     salaoId,
   }: ICreateSalao) {
     try {
-      const colaboradorExist = await prisma.colaborador.findFirst({
+      const colaboradorExist = await prisma.colaboradores.findFirst({
         where: {
           OR: [
             {
@@ -46,18 +46,18 @@ class CreateColaboradorUseCase {
       });
 
       if (colaboradorExist) {
-        throw new Error("Colaborador já existe");
+        throw new Error("Colaboradores já existe");
       }
 
       // CRIAR CONTA BANCÁRIA
 
       // CRIAR RECEBEDOR
 
-      const result = await prisma.colaborador.create({
+      const result = await prisma.colaboradores.create({
         data: colaborador,
       });
 
-      const existentRelationShip = await prisma.salaoColaborador.findFirst({
+      const existentRelationShip = await prisma.salao_colaboradores.findFirst({
         where: {
           colaboradorId: salaoId
         }
