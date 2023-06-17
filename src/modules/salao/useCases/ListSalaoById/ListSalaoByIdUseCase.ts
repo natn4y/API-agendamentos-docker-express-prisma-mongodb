@@ -19,27 +19,43 @@ class ListAllSalaoByUseCase {
       },
     });
 
-    const salaoPoint: Coord = {
-      type: 'Point',
-      coordinates: salao!.geo!.coordinates,
-    };
-
-    //Coordenada fictícia
     const targetPoint: Coord = {
       type: 'Point',
       coordinates: [-10.043858, -51.103487],
     };
 
-    const calculatedDistance = distance(salaoPoint, targetPoint);
-    const { id, nome, capa, geo } = salao!;
+    let response;
 
-    return {
-      id,
-      nome,
-      capa,
-      geo,
-      distance: calculatedDistance,
-    };
+    if (salao && salao.geo && salao.geo.coordinates) {
+      const salaoPoint: Coord = {
+        type: 'Point',
+        coordinates: salao.geo.coordinates,
+      };
+
+      const calculatedDistance = distance(salaoPoint, targetPoint);
+      const { id, nome, capa, geo } = salao;
+
+      response = {
+        id,
+        nome,
+        capa,
+        geo,
+        distance: calculatedDistance,
+      };
+    } else {
+      // Lógica para lidar com o caso em que salao.geo.coordinates é nulo
+      const { id, nome, capa } = salao!;
+
+      response = {
+        id,
+        nome,
+        capa,
+        geo: null,
+        distance: null,
+      };
+    }
+
+    return response;
   }
 }
 
