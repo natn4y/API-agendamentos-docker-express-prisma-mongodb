@@ -4,6 +4,11 @@ import os from 'os';
 import salaoRoutes from './routes/salao.routes';
 import cors from 'cors'
 import serviceRoutes from './routes/service.routes';
+import horarioRoutes from './routes/horario.routes';
+import geolocalizationRoutes from './routes/geolocalization.routes';
+import colaboradorRoutes from './routes/colaborador.routes';
+import ClientRoutes from './routes/cliente.routes';
+import salaoColaboradorRoutes from './routes/salaoColaborador.routes';
 
 const app = express();
 
@@ -13,6 +18,11 @@ app.use(morgan('dev'))
 
 app.use('/salao', salaoRoutes);
 app.use('/service', serviceRoutes);
+app.use('/horario', horarioRoutes);
+app.use('/geolocalization', geolocalizationRoutes);
+app.use('/colaborador', colaboradorRoutes);
+app.use('/client', ClientRoutes);
+app.use("/salaocolaborador", salaoColaboradorRoutes)
 
 app.get('/', (req: Request, res: Response) => {
   return res.json({
