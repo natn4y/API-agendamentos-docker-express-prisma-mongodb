@@ -26,9 +26,9 @@ export class CreateHorarioController {
 
       console.log(createHorarioUseCase);
 
-      return response.status(200).json({ message: 'Horário cadastrado com sucesso!' });
+      return response.status(200).json({ error: 'Horário cadastrado com sucesso!' });
     } catch (error) {
-      return response.status(409).json({ message: 'Erro ao cadastrar horário' });
+      return response.status(409).json({ error: 'Horário já existe' });
     }
   }
 }

@@ -20,11 +20,7 @@ class CreateDocumentController {
 
       return response.status(200).json({ message: 'Documento cadastrado com sucesso!' });
     } catch (error: unknown) {
-      if (error instanceof Error && error.message === 'Documento already exists') {
-        return response.status(409).json({ error: 'Documento already exists' });
-      }
-
-      return response.status(500).json({ error: 'Internal server error' });
+      return response.status(409).json({ error: 'Documento already exists' });
     }
   }
 }
