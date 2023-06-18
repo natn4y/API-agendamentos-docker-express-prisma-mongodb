@@ -11,6 +11,8 @@ import ClientRoutes from './routes/cliente.routes';
 import salaoColaboradorRoutes from './routes/salaoColaborador.routes';
 import DocumentsRoute from './routes/documents.routes';
 import AddressRoutes from './routes/address.routes';
+import ContaBancariaRoutes from './routes/contabancaria.routes';
+import ColaboradorServicesRoutes from './routes/colaboradorservices.routes';
 
 const app = express();
 
@@ -24,9 +26,11 @@ app.use('/horario', horarioRoutes);
 app.use('/geolocalizations', geolocalizationRoutes);
 app.use('/colaboradores', colaboradorRoutes);
 app.use('/client', ClientRoutes);
-app.use("/salaocolaboradores", salaoColaboradorRoutes)
-app.use("/document", DocumentsRoute)
-app.use("/address", AddressRoutes)
+app.use("/salaocolaboradores", salaoColaboradorRoutes);
+app.use("/document", DocumentsRoute);
+app.use("/address", AddressRoutes);
+app.use("/contabancaria", ContaBancariaRoutes);
+app.use("/colaboradorservices", ColaboradorServicesRoutes);
 
 app.get('/', (req: Request, res: Response) => {
   return res.json({
