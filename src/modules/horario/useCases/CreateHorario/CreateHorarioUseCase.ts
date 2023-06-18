@@ -3,7 +3,7 @@ import { prisma } from '../../../../database/prismaClient';
 interface ICreateHorario {
   salaoId: string;
   especialidades: any;
-  colaboradores: any;
+  collaborators: any;
   dias: number[];
   inicio: string;
   fim: string;
@@ -13,7 +13,7 @@ export class CreateHorarioUseCase {
   async execute({
     salaoId,
     especialidades,
-    colaboradores,
+    collaborators,
     dias,
     inicio,
     fim,
@@ -26,7 +26,7 @@ export class CreateHorarioUseCase {
           inicio,
           fim,
           especialidadesId: especialidades,
-          colaboradoresId: colaboradores,
+          colaboradoresId: collaborators,
         },
       });
 

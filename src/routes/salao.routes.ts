@@ -10,7 +10,7 @@ const listSalaoByIdController = new ListSalaoByIdController();
 
 salaoRoutes.post("/create", createSalaoController.handle);
 
-salaoRoutes.get('/servicos/:salaoId', listAllSalaoServicesController.handle);
+salaoRoutes.get('/services/:salaoId', listAllSalaoServicesController.handle);
 
 salaoRoutes.get('/:salaoId', listSalaoByIdController.handle);
 

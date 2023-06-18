@@ -18,11 +18,11 @@ class CreateSalaoColaboradorController {
         status,
       });
 
-      return response.status(200).json({ message: 'Salão Colaborador cadastrado com sucesso!' });
+      return response.status(200).json({ message: 'Salão Collaborators cadastrado com sucesso!' });
 
     } catch (error) {
-      console.log('Erro ao cadastrar Salão Colaborador');
-      return response.status(409).json({ error: 'Salão Colaborador já existe' });
+      console.log('Erro ao cadastrar Salão Collaborators');
+      return response.status(409).json({ error: 'Salão Collaborators já existe' });
     }
   }
 }

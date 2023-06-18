@@ -8,9 +8,9 @@ export class AlterarColaboradorController {
       const { colaboradorId } = request.params;
 
       const {
-        vinculo,
-        vinculoId,
-        especialidadesId,
+        vinculo, // Vínculo (string)
+        vinculoId, // ID do vínculo (string)
+        especialidadesId, // IDs das especialidades (array de strings)
       }: {
         vinculo: string;
         vinculoId: string;
@@ -18,42 +18,45 @@ export class AlterarColaboradorController {
       } = request.body;
 
       // VINCULO
-      await prisma.salao_colaboradores.update({
+      // Atualiza o status do vínculo na tabela salon_collaborators
+      await prisma.salon_collaborators.update({
         where: {
-          id: vinculoId,
+          id: vinculoId, // Condição de pesquisa: ID do vínculo
         },
         data: {
-          status: vinculo,
+          status: vinculo, // Novo valor do status
         }
       });
 
       // ESPECIALIDADES
-      await prisma.colaboradores_servicos.deleteMany({
+      // Deleta todos os registros de colaborador_servico relacionados ao colaborador
+      await prisma.collaborator_services.deleteMany({
         where: {
-          colaboradorId
+          colaboradorId // Condição de pesquisa: ID do colaborador
         }
       });
 
+      // para cada especialidadeId passada na requisição...
       const colaboradorServicos = especialidadesId.map((especialidade) => ({
-        colaboradorId,
-        servicoId: especialidade,
-        status: "ativo",
+        colaboradorId, // ID do colaborador
+        servicoId: especialidade, // ID da especialidade
+        status: "ativo", // Status da especialidade (ativo)
       }));
 
-      console.log(colaboradorServicos);
+      console.log(colaboradorServicos); // Exibe os colaboradorServicos no console para fins de depuração
 
-      await prisma.colaboradores_servicos.createMany({
-        data: colaboradorServicos,
+      // Cria múltiplos registros de colaborador_servico na tabela collaborator_services
+      await prisma.collaborator_services.createMany({
+        data: colaboradorServicos, // Dados dos colaboradorServicos a serem criados
       });
 
-      const alterarColaboradorUseCase = new AlterarColaboradorUseCase();
+      // const alterarColaboradorUseCase = new AlterarColaboradorUseCase();
 
-      await alterarColaboradorUseCase.execute(colaboradorId);
+      // await alterarColaboradorUseCase.execute(colaboradorId);
 
-      response.status(200).send("Colaborador editado com sucesso!");
+      response.status(200).send("Collaborators editado com sucesso!"); // Retorna uma resposta de sucesso
     } catch (error) {
-      response.status(500).send(error);
+      response.status(500).send(error); // Retorna uma resposta de erro em caso de exceção
     }
   }
-
 }

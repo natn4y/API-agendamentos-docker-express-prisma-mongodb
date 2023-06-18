@@ -3,7 +3,7 @@ import { prisma } from '../../../../database/prismaClient'
 class ListAllSalaoServicesUseCase {
   async execute(salaoId: string) {
 
-    const servicos = await prisma.servicos.findMany({
+    const services = await prisma.services.findMany({
       where: {
         status: {
           equals: 'A',
@@ -15,7 +15,7 @@ class ListAllSalaoServicesUseCase {
       },
     })
 
-    return servicos;
+    return services;
   }
 }
 

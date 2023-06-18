@@ -26,7 +26,7 @@ class CreateClientUseCase {
     documentoId,
   }: ICreateClient) {
     try {
-      const existingClient = await prisma.clientes.findFirst({
+      const existingClient = await prisma.clients.findFirst({
         where: {
           nome: {
             equals: nome,
@@ -41,7 +41,7 @@ class CreateClientUseCase {
 
       const hashPassword = await hash(senha, 10);
 
-      const newClient = await prisma.clientes.create({
+      const newClient = await prisma.clients.create({
         data: {
           nome,
           senha: hashPassword,
@@ -56,7 +56,7 @@ class CreateClientUseCase {
 
       return newClient;
     } catch (error) {
-      console.error('Erro ao cadastrar clientes', error);
+      console.error('Erro ao cadastrar clients', error);
       throw error;
     }
   }

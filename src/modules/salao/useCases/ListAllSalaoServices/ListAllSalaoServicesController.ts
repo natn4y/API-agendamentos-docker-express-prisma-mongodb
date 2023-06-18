@@ -7,8 +7,8 @@ class ListAllSalaoServicesController {
     const listAllSalaoServicesUseCase = new ListAllSalaoServicesUseCase();
 
     try {
-      const servicos = await listAllSalaoServicesUseCase.execute(salaoId);
-      return response.status(200).json(servicos);
+      const services = await listAllSalaoServicesUseCase.execute(salaoId);
+      return response.status(200).json(services);
     } catch (error) {
       console.log('Erro ao listar serviços:', error);
       return response.status(500).json({ error: 'Erro ao listar serviços' });

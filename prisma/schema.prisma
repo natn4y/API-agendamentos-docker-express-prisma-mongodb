@@ -23,7 +23,7 @@ generator client {
 
 //! -----> CLIENTE
 
-model Clientes {
+model Clients {
   id             String @id @default(uuid()) @map("_id")
   nome           String
   telefone       String
@@ -39,39 +39,39 @@ model Clientes {
   salaoClient  salao_Clientes?
   agendamentos Agendamentos?
 
-  documentos Documentos @relation(fields: [documentoId], references: [id])
-  enderecos  Enderecos  @relation(fields: [enderecoId], references: [id])
+  documents Documents @relation(fields: [documentoId], references: [id])
+  addresses  Addresses  @relation(fields: [enderecoId], references: [id])
 
-  @@map("clientes")
+  @@map("clients")
 }
 
-model Documentos {
+model Documents {
   id       String     @id @default(uuid()) @map("_id")
   tipo     String
   numero   String
-  clientes Clientes[]
+  clients Clients[]
 
-  @@map("documentos")
+  @@map("documents")
 }
 
-model Enderecos {
+model Addresses {
   id           String     @id @default(uuid()) @map("_id")
   pais         String
   numero       String
   cep          String
   uf           String
   cidade       String
-  clientes     Clientes[]
+  clients     Clients[]
   dataCadastro DateTime   @default(now())
 
-  saloes Saloes?
+  salons Salons?
 
-  @@map("enderecos")
+  @@map("addresses")
 }
 
 //! -----> SERVICO
 
-model Saloes {
+model Salons {
   id           String   @id @default(uuid()) @map("_id")
   nome         String   @unique
   foto         String?
@@ -82,17 +82,17 @@ model Saloes {
   dataCadastro DateTime @default(now())
 
   enderecoId          String?              @unique @default(uuid())
-  salao_colaboradores salao_colaboradores?
+  salon_collaborators salon_collaborators?
   salaoClient         salao_Clientes?
   agendamentos        Agendamentos?
 
-  enderecos Enderecos?        @relation(fields: [enderecoId], references: [id])
+  addresses Addresses?        @relation(fields: [enderecoId], references: [id])
   geo       Geolocalizations?
 
-  servicos Servicos[] @relation("SalaoToServico")
+  services Services[] @relation("SalaoToServico")
   horarios Horario[]  @relation("SalaoToHorario")
 
-  @@map("saloes")
+  @@map("salons")
 }
 
 model Geolocalizations {
@@ -101,21 +101,21 @@ model Geolocalizations {
   coordinates Float[]
   salaoId     String  @unique
 
-  saloes Saloes @relation(fields: [salaoId], references: [id])
+  salons Salons @relation(fields: [salaoId], references: [id])
 
   @@map("geolocalizations")
 }
 
 //! -----> COLABORADOR
 
-model Vinculos {
+model Relationships {
   id            String          @id @default(uuid()) @map("_id")
-  Colaboradores Colaboradores[]
+  Collaborators Collaborators[]
 
-  @@map("vinculos")
+  @@map("relationships")
 }
 
-model Colaboradores {
+model Collaborators {
   id               String   @id @default(uuid()) @map("_id")
   nome             String
   telefone         String
@@ -134,17 +134,17 @@ model Colaboradores {
   vinculo          String
   vinculoId        String
 
-  salao_colaboradores    salao_colaboradores?
-  colaboradores_servicos Colaboradores_servicos?
+  salon_collaborators    salon_collaborators?
+  collaborator_services Collaborator_services?
   agendamentos           Agendamentos?
 
-  vinculos       Vinculos?       @relation(fields: [vinculoId], references: [id])
-  especialidades Servicos       @relation(fields: [especialidadesId], references: [id])
+  relationships       Relationships?       @relation(fields: [vinculoId], references: [id])
+  especialidades Services       @relation(fields: [especialidadesId], references: [id])
   horario        Horario?
   conta_bancaria Conta_bancaria @relation(fields: [ContaBancariaId], references: [id])
   recipient      Recipient      @relation(fields: [recipientId], references: [id])
 
-  @@map("colaboradores")
+  @@map("collaborators")
 }
 
 model Conta_bancaria {
@@ -157,7 +157,7 @@ model Conta_bancaria {
   numero  DateTime
   dv      String   @default("M")
 
-  colaboradores Colaboradores?
+  collaborators Collaborators?
 
   @@map("conta_bancaria")
 }
@@ -166,14 +166,14 @@ model Recipient {
   id           String   @id @default(uuid()) @map("_id")
   dataCadastro DateTime @default(now())
 
-  colaboradores Colaboradores?
+  collaborators Collaborators?
 
   @@map("recipient")
 }
 
 //! -----> SERVICO
 
-model Servicos {
+model Services {
   id                     String                  @id @default(uuid()) @map("_id")
   salaoId                String
   titulo                 String
@@ -185,14 +185,14 @@ model Servicos {
   status                 String
   dataCadastro           DateTime                @default(now())
   horarioId              String?
-  colaboradores_servicos Colaboradores_servicos?
+  collaborator_services Collaborator_services?
   agendamentos           Agendamentos?
 
-  saloes        Saloes         @relation("SalaoToServico", fields: [salaoId], references: [id])
+  salons        Salons         @relation("SalaoToServico", fields: [salaoId], references: [id])
   horario       Horario?
-  Colaboradores Colaboradores?
+  Collaborators Collaborators?
 
-  @@map("servicos")
+  @@map("services")
 }
 
 model Horario {
@@ -204,16 +204,16 @@ model Horario {
   inicio           String
   fim              String
 
-  saloes         Saloes        @relation("SalaoToHorario", fields: [salaoId], references: [id])
-  especialidades Servicos      @relation(fields: [especialidadesId], references: [id])
-  colaboradores  Colaboradores @relation(fields: [colaboradoresId], references: [id])
+  salons         Salons        @relation("SalaoToHorario", fields: [salaoId], references: [id])
+  especialidades Services      @relation(fields: [especialidadesId], references: [id])
+  collaborators  Collaborators @relation(fields: [colaboradoresId], references: [id])
 
   @@map("horario")
 }
 
 //! -----> SALAO COLABORADOR
 
-model salao_colaboradores {
+model salon_collaborators {
   id            String @id @default(uuid()) @map("_id")
   salaoId       String @unique
   colaboradorId String @unique
@@ -221,25 +221,25 @@ model salao_colaboradores {
 
   dataCadastro DateTime @default(now())
 
-  saloes        Saloes        @relation(fields: [salaoId], references: [id])
-  colaboradores Colaboradores @relation(fields: [colaboradorId], references: [id])
+  salons        Salons        @relation(fields: [salaoId], references: [id])
+  collaborators Collaborators @relation(fields: [colaboradorId], references: [id])
 
-  @@map("salao_colaboradores")
+  @@map("salon_collaborators")
 }
 
 //! -----> COLABORADOR SERVICO
 
-model Colaboradores_servicos {
+model Collaborator_services {
   id            String   @id @default(uuid()) @map("_id")
   colaboradorId String   @unique
   servicoId     String   @unique
   status        String
   dataCadastro  DateTime @default(now())
 
-  colaboradores Colaboradores @relation(fields: [colaboradorId], references: [id])
-  servicos      Servicos      @relation(fields: [servicoId], references: [id])
+  collaborators Collaborators @relation(fields: [colaboradorId], references: [id])
+  services      Services      @relation(fields: [servicoId], references: [id])
 
-  @@map("colaboradores_servicos")
+  @@map("collaborator_services")
 }
 
 //! -----> SALAO CLIENTE
@@ -251,10 +251,10 @@ model salao_Clientes {
   status       String
   dataCadastro DateTime @default(now())
 
-  saloes Saloes   @relation(fields: [salaoId], references: [id])
-  client Clientes @relation(fields: [clientId], references: [id])
+  salons Salons   @relation(fields: [salaoId], references: [id])
+  client Clients @relation(fields: [clientId], references: [id])
 
-  @@map("salao_clientes")
+  @@map("salon_clients")
 }
 
 //! -----> AGENDAMENTO
@@ -272,10 +272,10 @@ model Agendamentos {
   valor         Float
   transactionId String
 
-  saloes        Saloes        @relation(fields: [salaoId], references: [id])
-  client        Clientes      @relation(fields: [clientId], references: [id])
-  servicos      Servicos      @relation(fields: [servicoId], references: [id])
-  colaboradores Colaboradores @relation(fields: [colaboradorId], references: [id])
+  salons        Salons        @relation(fields: [salaoId], references: [id])
+  client        Clients      @relation(fields: [clientId], references: [id])
+  services      Services      @relation(fields: [servicoId], references: [id])
+  collaborators Collaborators @relation(fields: [colaboradorId], references: [id])
 
   @@map("agendamentos")
 }

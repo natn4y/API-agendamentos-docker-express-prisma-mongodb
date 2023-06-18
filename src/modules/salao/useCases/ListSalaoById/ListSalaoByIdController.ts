@@ -8,11 +8,11 @@ class ListSalaoByIdController {
     const listAllSalaoByUseCase = new ListAllSalaoByUseCase();
 
     try {
-      const saloes = await listAllSalaoByUseCase.execute(salaoId);
+      const salons = await listAllSalaoByUseCase.execute(salaoId);
 
-      return response.status(200).json(saloes);
+      return response.status(200).json(salons);
     } catch (error) {
-      return response.status(500).json({error: 'Erro ao listar saloes'})
+      return response.status(500).json({error: 'Erro ao listar salons'})
     }
   }
 }

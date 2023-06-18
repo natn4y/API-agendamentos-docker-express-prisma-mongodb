@@ -13,7 +13,7 @@ class CreateSalaoColaboradorUseCase {
     status,
   }: ICreateSalaoColaborador) {
     try {
-      const salaoColaboradorExist = await prisma.salao_colaboradores.findFirst({
+      const salaoColaboradorExist = await prisma.salon_collaborators.findFirst({
         where: {
           OR: [
             {
@@ -27,11 +27,11 @@ class CreateSalaoColaboradorUseCase {
       });
 
       if (salaoColaboradorExist) {
-        throw new Error("Salão Colaboradores já existe");
+        throw new Error("Salão Collaborators já existe");
       }
 
 
-      const result = await prisma.salao_colaboradores.create({
+      const result = await prisma.salon_collaborators.create({
         data: {
           salaoId,
           colaboradorId,
@@ -43,7 +43,7 @@ class CreateSalaoColaboradorUseCase {
 
     } catch (error) {
       console.log(error);
-      throw new Error("Erro ao cadastrar Colaboradores");
+      throw new Error("Erro ao cadastrar Collaborators");
     }
   }
 }
