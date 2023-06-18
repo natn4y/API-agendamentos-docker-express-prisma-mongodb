@@ -39,8 +39,8 @@ model Clients {
   salaoClient  salao_Clientes?
   agendamentos Agendamentos?
 
-  addresses Addresses   @relation(fields: [enderecoId], references: [id])
   Documents Documents[]
+  Addresses Addresses[]
 
   @@map("clients")
 }
@@ -57,16 +57,18 @@ model Documents {
 }
 
 model Addresses {
-  id           String    @id @default(uuid()) @map("_id")
+  id           String   @id @default(uuid()) @map("_id")
   pais         String
   numero       String
   cep          String
   uf           String
   cidade       String
-  clients      Clients[]
-  dataCadastro DateTime  @default(now())
+  clientId     String?
+  salonId      String?
+  dataCadastro DateTime @default(now())
 
-  salons Salons?
+  salons  Salons?  @relation(fields: [salonId], references: [id])
+  clients Clients? @relation(fields: [clientId], references: [id])
 
   @@map("addresses")
 }
@@ -88,11 +90,11 @@ model Salons {
   salaoClient         salao_Clientes?
   agendamentos        Agendamentos?
 
-  addresses Addresses?        @relation(fields: [enderecoId], references: [id])
-  geo       Geolocalizations?
+  geo Geolocalizations?
 
-  services Services[] @relation("SalaoToServico")
-  horarios Horario[]  @relation("SalaoToHorario")
+  services  Services[]  @relation("SalaoToServico")
+  horarios  Horario[]   @relation("SalaoToHorario")
+  Addresses Addresses[]
 
   @@map("salons")
 }
