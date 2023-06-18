@@ -16,6 +16,7 @@ interface ICreateSalao {
     horarioId: string;
     especialidadesId: string[];
     vinculo: string;
+    vinculoId: string;
   };
   salaoId: any;
 }
