@@ -1,5 +1,6 @@
 import { Router } from 'express';
-import { CreateSalaoColaboradorController } from '../modules/salaoColaborador/useCases/CreateSalaoColaborador/CreateSalaoColaboradorController';
+
+import { CreateSalaoColaboradorController } from '@modules/salaoColaborador/useCases/CreateSalaoColaborador/CreateSalaoColaboradorController';
 
 const salaoColaboradorRoutes = Router();
 const createSalaoColaboradorController = new CreateSalaoColaboradorController();

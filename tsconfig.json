@@ -9,6 +9,17 @@
     "sourceMap": true,
     "rootDir": "./",
     "baseUrl": "./src",
+    "paths": {
+      "@data/*": ["./data/*"],
+      "@database/*": ["./database/*"],
+      "@middlewares/*": ["./middlewares/*"],
+      "@migrations/*": ["./migrations/*"],
+      "@modules/*": ["./modules/*"],
+      "@routes/*": ["./routes/*"],
+      "@services/*": ["./services/*"],
+      "@trash/*": ["./trash/*"],
+      "@types/*": ["./@types/*"]
+    },
     "outDir": "dist",
     "strict": true,
     "lib": ["esnext"],

@@ -1,4 +1,4 @@
-import { prisma } from '../../../../database/prismaClient';
+import { prisma } from '@database/prismaClient';
 import { distance, Coord } from '@turf/turf';
 
 class ListAllSalaoByUseCase {

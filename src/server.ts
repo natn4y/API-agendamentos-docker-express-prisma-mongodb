@@ -1,3 +1,17 @@
+import { register } from 'tsconfig-paths';
+import * as path from 'path';
+
+register({
+  baseUrl: path.resolve(__dirname, '..'), // Caminho para o diretório raiz do seu projeto
+  paths: {
+    '@database/*': ['src/database/*'],
+    '@middlewares/*': ['src/middlewares/*'],
+    '@modules/*': ['src/modules/*'],
+    '@routes/*': ['src/routes/*'],
+    '@services/*': ['src/services/*']
+  }
+});
+
 import express, { Request, Response } from 'express';
 import morgan from 'morgan'
 import os from 'os';

@@ -1,5 +1,6 @@
 import { Router } from 'express';
-import { CreateAddressController } from '../modules/address/useCases/CreateAddress/CreateAddressController';
+
+import { CreateAddressController } from '@modules/address/useCases/CreateAddress/CreateAddressController';
 
 const AddressRoutes = Router();
 const createAddressController = new CreateAddressController();

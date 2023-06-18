@@ -1,7 +1,7 @@
 import { Router } from 'express';
-import { AlterarColaboradorController } from '../modules/salaoColaborador/useCases/AlterarColaborador/AlterarColaboradorController';
-import { CreateColaboradorController } from '../modules/colaborador/useCases/CreateColaborador/CreateColaboradorController';
 
+import { CreateColaboradorController } from '@modules/colaborador/useCases/CreateColaborador/CreateColaboradorController';
+import { AlterarColaboradorController } from '@modules/salaoColaborador/useCases/AlterarColaborador/AlterarColaboradorController';
 
 const colaboradorRoutes = Router();
 const createColaboradorController = new CreateColaboradorController();

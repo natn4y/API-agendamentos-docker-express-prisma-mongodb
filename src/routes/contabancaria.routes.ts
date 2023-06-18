@@ -1,5 +1,6 @@
 import { Router } from 'express';
-import { CreateContaBancariaController } from '../modules/contaBancaria/useCases/CreateContaBancariaController';
+
+import { CreateContaBancariaController } from '@modules/contaBancaria/useCases/CreateContaBancariaController';
 
 const ContaBancariaRoutes = Router();
 const createContaBancariaController = new CreateContaBancariaController();

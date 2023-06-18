@@ -1,7 +1,6 @@
 import { hash } from 'bcrypt';
-import { PrismaClient } from '@prisma/client';
 
-const prisma = new PrismaClient();
+import { prisma } from '@database/prismaClient';
 
 interface ICreateClient {
   nome: string;
