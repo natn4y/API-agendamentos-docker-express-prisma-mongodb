@@ -152,14 +152,14 @@ model Collaborators {
 }
 
 model Conta_bancaria {
-  id      String   @id @default(uuid()) @map("_id")
+  id      String @id @default(uuid()) @map("_id")
   titular String
   cpfcnpj String
   banco   String
   tipo    String
   agencia String
-  numero  DateTime
-  dv      String   @default("M")
+  numero  String
+  dv      String @default("M")
 
   collaborators Collaborators?
 
