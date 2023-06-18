@@ -21,7 +21,7 @@ interface ICreateSalao {
   salaoId: any;
 }
 
-class CreateColaboradorUseCase {
+class CreateCollaboratorUseCase {
   async execute({
     colaborador,
     salaoId,
@@ -77,4 +77,4 @@ class CreateColaboradorUseCase {
   }
 }
 
-export { CreateColaboradorUseCase }
+export { CreateCollaboratorUseCase }

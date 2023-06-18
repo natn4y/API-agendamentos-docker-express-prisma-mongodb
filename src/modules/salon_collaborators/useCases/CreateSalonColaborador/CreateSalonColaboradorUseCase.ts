@@ -6,7 +6,7 @@ interface ICreateSalaoColaborador {
   status: string;
 }
 
-class CreateSalaoColaboradorUseCase {
+class CreateSalonColaboradorUseCase {
   async execute({
     salaoId,
     colaboradorId,
@@ -48,4 +48,4 @@ class CreateSalaoColaboradorUseCase {
   }
 }
 
-export { CreateSalaoColaboradorUseCase }
+export { CreateSalonColaboradorUseCase }

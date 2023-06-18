@@ -1,13 +1,13 @@
 import { Request, Response } from 'express';
-import { ListAllSalaoServicesUseCase } from './ListAllSalaoServicesUseCase';
+import { ListAllSalonServiceUseCase } from './ListAllSalonServicesUseCase';
 
-class ListAllSalaoServicesController {
+class ListAllSalonServicesController {
   async handle(request: Request, response: Response) {
     const { salaoId } = request.params;
-    const listAllSalaoServicesUseCase = new ListAllSalaoServicesUseCase();
+    const listAllSalonServicesUseCase = new ListAllSalonServiceUseCase();
 
     try {
-      const services = await listAllSalaoServicesUseCase.execute(salaoId);
+      const services = await listAllSalonServicesUseCase.execute(salaoId);
       return response.status(200).json(services);
     } catch (error) {
       console.log('Erro ao listar serviços:', error);
@@ -16,4 +16,4 @@ class ListAllSalaoServicesController {
   }
 }
 
-export { ListAllSalaoServicesController };
+export { ListAllSalonServicesController };

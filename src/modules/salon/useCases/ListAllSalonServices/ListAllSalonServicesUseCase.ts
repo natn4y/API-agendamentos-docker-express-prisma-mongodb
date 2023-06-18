@@ -1,6 +1,6 @@
 import { prisma } from '@database/prismaClient';
 
-class ListAllSalaoServicesUseCase {
+class ListAllSalonServiceUseCase {
   async execute(salaoId: string) {
 
     const services = await prisma.services.findMany({
@@ -19,4 +19,4 @@ class ListAllSalaoServicesUseCase {
   }
 }
 
-export { ListAllSalaoServicesUseCase }
+export { ListAllSalonServiceUseCase }

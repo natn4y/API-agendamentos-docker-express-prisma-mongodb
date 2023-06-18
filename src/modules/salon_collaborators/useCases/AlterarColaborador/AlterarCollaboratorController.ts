@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import { AlterarColaboradorUseCase } from './AlterarColaboradorUseCase';
 import { prisma } from '../../../../database/prismaClient';
 
-export class AlterarColaboradorController {
+export class AlterarCollaboratorController {
   async handle(request: Request, response: Response) {
     try {
       const { colaboradorId } = request.params;

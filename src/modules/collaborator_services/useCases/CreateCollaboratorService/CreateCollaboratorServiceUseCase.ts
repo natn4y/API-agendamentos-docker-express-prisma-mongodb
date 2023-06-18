@@ -6,7 +6,7 @@ interface ICreateAddress {
   status: string;
 }
 
-class CreateCollaboratorServicesUseCase {
+class CreateCollaboratorServiceUseCase {
   async execute({
     colaboradorId,
     servicoId,
@@ -29,4 +29,4 @@ class CreateCollaboratorServicesUseCase {
   }
 }
 
-export { CreateCollaboratorServicesUseCase };
+export { CreateCollaboratorServiceUseCase };

@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
-import { CreateColaboradorUseCase } from './CreateColaboradorUseCase';
+import { CreateCollaboratorUseCase } from './CreateCollaboratorUseCase';
 
-class CreateColaboradorController {
+class CreateCollaboratorController {
   async handle(request: Request, response: Response) {
     const {
       colaborador,
@@ -9,7 +9,7 @@ class CreateColaboradorController {
     } = request.body;
 
     try {
-      const createColaboradorUseCase = new CreateColaboradorUseCase();
+      const createColaboradorUseCase = new CreateCollaboratorUseCase();
       await createColaboradorUseCase.execute({
         colaborador,
         salaoId,
@@ -22,4 +22,4 @@ class CreateColaboradorController {
   }
 }
 
-export { CreateColaboradorController };
+export { CreateCollaboratorController };

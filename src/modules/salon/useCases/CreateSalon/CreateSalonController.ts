@@ -1,7 +1,8 @@
 import { Request, Response } from 'express';
-import { CreateSalaoUseCase } from './CreateSalaoUseCase';
 
-class CreateSalaoController {
+import { CreateSalonUseCase } from './CreateSalonUseCase';
+
+class CreateSalonController {
   async handle(request: Request, response: Response) {
     const {
       nome,
@@ -15,7 +16,7 @@ class CreateSalaoController {
     } = request.body;
 
     try {
-      const createSalaoUseCase = new CreateSalaoUseCase();
+      const createSalaoUseCase = new CreateSalonUseCase();
       await createSalaoUseCase.execute({
         nome,
         foto,
@@ -34,4 +35,4 @@ class CreateSalaoController {
   }
 }
 
-export { CreateSalaoController };
+export { CreateSalonController };

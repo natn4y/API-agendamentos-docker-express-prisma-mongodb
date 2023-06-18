@@ -11,7 +11,7 @@ interface ICreateSalao {
   enderecoId: string;
 }
 
-class CreateSalaoUseCase {
+class CreateSalonUseCase {
   async execute({
     nome,
     foto,
@@ -58,4 +58,4 @@ class CreateSalaoUseCase {
   }
 }
 
-export { CreateSalaoUseCase }
+export { CreateSalonUseCase }

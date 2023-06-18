@@ -1,7 +1,7 @@
 import { prisma } from '@database/prismaClient';
 import { distance, Coord } from '@turf/turf';
 
-class ListAllSalaoByUseCase {
+class ListSalonByIdUseCase {
   async execute(salaoId: string) {
     const salons = await prisma.salons.findFirst({
       where: {
@@ -59,4 +59,4 @@ class ListAllSalaoByUseCase {
   }
 }
 
-export { ListAllSalaoByUseCase };
+export { ListSalonByIdUseCase };

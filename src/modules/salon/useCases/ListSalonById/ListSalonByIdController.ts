@@ -1,14 +1,15 @@
 import { Request, Response } from 'express';
-import { ListAllSalaoByUseCase } from './ListSalaoByIdUseCase';
 
-class ListSalaoByIdController {
+import { ListSalonByIdUseCase } from './ListSalonByIdUseCase';
+
+class ListSalonByIdController {
   async handle(request: Request, response: Response) {
     const { salaoId } = request.params;
 
-    const listAllSalaoByUseCase = new ListAllSalaoByUseCase();
+    const listAllSalonByUseCase = new ListSalonByIdUseCase();
 
     try {
-      const salons = await listAllSalaoByUseCase.execute(salaoId);
+      const salons = await listAllSalonByUseCase.execute(salaoId);
 
       return response.status(200).json(salons);
     } catch (error) {
@@ -17,4 +18,4 @@ class ListSalaoByIdController {
   }
 }
 
-export { ListSalaoByIdController }
+export { ListSalonByIdController }

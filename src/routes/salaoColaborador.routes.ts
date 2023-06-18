@@ -1,9 +1,9 @@
 import { Router } from 'express';
 
-import { CreateSalaoColaboradorController } from '@modules/salaoColaborador/useCases/CreateSalaoColaborador/CreateSalaoColaboradorController';
+import { CreateSalonCollaboratorController } from '@modules/salon_collaborators/useCases/CreateSalonColaborador/CreateSalonCollaboratorController';
 
 const salaoColaboradorRoutes = Router();
-const createSalaoColaboradorController = new CreateSalaoColaboradorController();
+const createSalaoColaboradorController = new CreateSalonCollaboratorController();
 
 salaoColaboradorRoutes.post("/create", createSalaoColaboradorController.handle);
 

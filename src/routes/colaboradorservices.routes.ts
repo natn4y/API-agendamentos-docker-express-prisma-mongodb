@@ -1,9 +1,9 @@
 import { Router } from 'express';
 
-import { CreateCollaboratorServicesController } from '@modules/collaborator_services/useCases/CreateCollaboratorServices/CreateCollaboratorServicesController';
+import { CreateCollaboratorServiceController } from '@modules/collaborator_services/useCases/CreateCollaboratorService/CreateCollaboratorServiceController';
 
 const ColaboradorServicesRoutes = Router();
-const createContaBancariaController = new CreateCollaboratorServicesController();
+const createContaBancariaController = new CreateCollaboratorServiceController();
 
 ColaboradorServicesRoutes.post("/create", createContaBancariaController.handle);
 

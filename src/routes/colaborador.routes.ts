@@ -1,11 +1,11 @@
 import { Router } from 'express';
 
-import { CreateColaboradorController } from '@modules/colaborador/useCases/CreateColaborador/CreateColaboradorController';
-import { AlterarColaboradorController } from '@modules/salaoColaborador/useCases/AlterarColaborador/AlterarColaboradorController';
+import { CreateCollaboratorController } from '@modules/collaborator/useCases/CreateCollaborator/CreateCollaboratorController';
+import { AlterarCollaboratorController } from '@modules/salon_collaborators/useCases/AlterarColaborador/AlterarCollaboratorController';
 
 const colaboradorRoutes = Router();
-const createColaboradorController = new CreateColaboradorController();
-const alterarColaboradorController = new AlterarColaboradorController();
+const createColaboradorController = new CreateCollaboratorController();
+const alterarColaboradorController = new AlterarCollaboratorController();
 
 colaboradorRoutes.post("/create", createColaboradorController.handle);
 
