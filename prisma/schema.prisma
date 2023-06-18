@@ -39,30 +39,32 @@ model Clients {
   salaoClient  salao_Clientes?
   agendamentos Agendamentos?
 
-  documents Documents @relation(fields: [documentoId], references: [id])
-  addresses  Addresses  @relation(fields: [enderecoId], references: [id])
+  addresses Addresses   @relation(fields: [enderecoId], references: [id])
+  Documents Documents[]
 
   @@map("clients")
 }
 
 model Documents {
-  id       String     @id @default(uuid()) @map("_id")
+  id       String @id @default(uuid()) @map("_id")
+  clientId String
   tipo     String
   numero   String
-  clients Clients[]
+
+  clients Clients @relation(fields: [clientId], references: [id])
 
   @@map("documents")
 }
 
 model Addresses {
-  id           String     @id @default(uuid()) @map("_id")
+  id           String    @id @default(uuid()) @map("_id")
   pais         String
   numero       String
   cep          String
   uf           String
   cidade       String
-  clients     Clients[]
-  dataCadastro DateTime   @default(now())
+  clients      Clients[]
+  dataCadastro DateTime  @default(now())
 
   salons Salons?
 
@@ -134,11 +136,11 @@ model Collaborators {
   vinculo          String
   vinculoId        String
 
-  salon_collaborators    salon_collaborators?
+  salon_collaborators   salon_collaborators?
   collaborator_services Collaborator_services?
-  agendamentos           Agendamentos?
+  agendamentos          Agendamentos?
 
-  relationships       Relationships?       @relation(fields: [vinculoId], references: [id])
+  relationships  Relationships? @relation(fields: [vinculoId], references: [id])
   especialidades Services       @relation(fields: [especialidadesId], references: [id])
   horario        Horario?
   conta_bancaria Conta_bancaria @relation(fields: [ContaBancariaId], references: [id])
@@ -174,19 +176,19 @@ model Recipient {
 //! -----> SERVICO
 
 model Services {
-  id                     String                  @id @default(uuid()) @map("_id")
-  salaoId                String
-  titulo                 String
-  preco                  Int
-  comissao               Float // % de comissão sobre o preço
-  recorrencia            Int // Período de refação do serviço em dias
-  duracao                Int // Duração em minutos
-  descricao              String
-  status                 String
-  dataCadastro           DateTime                @default(now())
-  horarioId              String?
+  id                    String                 @id @default(uuid()) @map("_id")
+  salaoId               String
+  titulo                String
+  preco                 Int
+  comissao              Float // % de comissão sobre o preço
+  recorrencia           Int // Período de refação do serviço em dias
+  duracao               Int // Duração em minutos
+  descricao             String
+  status                String
+  dataCadastro          DateTime               @default(now())
+  horarioId             String?
   collaborator_services Collaborator_services?
-  agendamentos           Agendamentos?
+  agendamentos          Agendamentos?
 
   salons        Salons         @relation("SalaoToServico", fields: [salaoId], references: [id])
   horario       Horario?
@@ -251,7 +253,7 @@ model salao_Clientes {
   status       String
   dataCadastro DateTime @default(now())
 
-  salons Salons   @relation(fields: [salaoId], references: [id])
+  salons Salons  @relation(fields: [salaoId], references: [id])
   client Clients @relation(fields: [clientId], references: [id])
 
   @@map("salon_clients")
@@ -273,7 +275,7 @@ model Agendamentos {
   transactionId String
 
   salons        Salons        @relation(fields: [salaoId], references: [id])
-  client        Clients      @relation(fields: [clientId], references: [id])
+  client        Clients       @relation(fields: [clientId], references: [id])
   services      Services      @relation(fields: [servicoId], references: [id])
   collaborators Collaborators @relation(fields: [colaboradorId], references: [id])
 

@@ -9,6 +9,7 @@ import geolocalizationRoutes from './routes/geolocalization.routes';
 import colaboradorRoutes from './routes/colaborador.routes';
 import ClientRoutes from './routes/cliente.routes';
 import salaoColaboradorRoutes from './routes/salaoColaborador.routes';
+import DocumentsRoute from './routes/documents.routes';
 
 const app = express();
 
@@ -23,6 +24,7 @@ app.use('/geolocalizations', geolocalizationRoutes);
 app.use('/colaboradores', colaboradorRoutes);
 app.use('/client', ClientRoutes);
 app.use("/salaocolaboradores", salaoColaboradorRoutes)
+app.use("/document", DocumentsRoute)
 
 app.get('/', (req: Request, res: Response) => {
   return res.json({
