@@ -9,8 +9,20 @@ interface ICreateClient {
   email: string;
   foto: string;
   telefone: string;
-  documentoId: string;
-  enderecoId: string;
+  documentoId?: string;
+  enderecoId?: string;
+  endereco: {
+    pais: string
+    numero: string
+    cep: string
+    uf: string
+    cidade: string
+    rua: string
+  };
+  documment: {
+    tipo: string;
+    numero: string;
+  };
 }
 
 class CreateClientUseCase {
@@ -23,6 +35,8 @@ class CreateClientUseCase {
     telefone,
     enderecoId,
     documentoId,
+    endereco,
+    documment,
   }: ICreateClient) {
     try {
       const existingClient = await prisma.clients.findFirst({
@@ -51,6 +65,27 @@ class CreateClientUseCase {
           documentoId,
           enderecoId,
         },
+      });
+
+      await prisma.addresses.create({
+        data: {
+          cep: endereco.cep,
+          cidade: endereco.cidade,
+          numero: endereco.numero,
+          pais: endereco.pais,
+          rua: endereco.rua,
+          uf: endereco.uf,
+          clientId: newClient.id,
+          salonId: null,
+        }
+      });
+
+      await prisma.documents.create({
+        data: {
+          numero: documment.tipo,
+          tipo: documment.tipo,
+          clientId: newClient.id,
+        }
       });
 
       return newClient;
