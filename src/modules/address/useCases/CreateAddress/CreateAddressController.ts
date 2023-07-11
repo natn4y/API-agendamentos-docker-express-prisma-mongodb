@@ -11,6 +11,7 @@ class CreateAddressController {
       cep,
       uf,
       cidade,
+      rua,
       clientId,
       salonId,
     } = request.body;
@@ -22,6 +23,7 @@ class CreateAddressController {
         cep,
         uf,
         cidade,
+        rua,
         clientId,
         salonId,
       });

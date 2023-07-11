@@ -6,6 +6,7 @@ interface ICreateAddress {
   cep: string;
   uf: string;
   cidade: string;
+  rua: string;
   clientId?: string;
   salonId?: string;
 }
@@ -17,6 +18,7 @@ class CreateAddressUseCase {
     cep,
     uf,
     cidade,
+    rua,
     clientId,
     salonId,
   }: ICreateAddress) {
@@ -25,17 +27,11 @@ class CreateAddressUseCase {
         where: {
           OR: [
             {
-              clientId: {
-                equals: clientId,
+              cep: {
+                equals: cep,
                 mode: 'insensitive',
               },
-            },
-            {
-              salonId: {
-                equals: salonId,
-                mode: 'insensitive',
-              },
-            },
+            }
           ],
         },
       });
@@ -52,6 +48,7 @@ class CreateAddressUseCase {
           cep,
           uf,
           cidade,
+          rua,
           clientId,
           salonId,
         },

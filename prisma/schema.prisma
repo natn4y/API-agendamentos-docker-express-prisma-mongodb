@@ -63,6 +63,7 @@ model Addresses {
   cep          String
   uf           String
   cidade       String
+  rua          String
   clientId     String?
   salonId      String?
   dataCadastro DateTime @default(now())
