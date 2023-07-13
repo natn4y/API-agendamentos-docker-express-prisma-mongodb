@@ -13,6 +13,7 @@ class CreateContaBancariaController {
       agencia,
       numero,
       dv,
+      collaboratorId,
     } = request.body;
 
     try {
@@ -24,6 +25,7 @@ class CreateContaBancariaController {
         agencia,
         numero,
         dv,
+        collaboratorId,
       });
 
       return response.status(200).json({ message: 'Conta cadastrada com sucesso!' });

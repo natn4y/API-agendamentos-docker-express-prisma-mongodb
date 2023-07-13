@@ -8,6 +8,7 @@ interface ICreateAddress {
   agencia: string;
   numero: string;
   dv: string;
+  collaboratorId: string;
 }
 
 class CreateContaBancariaUseCase {
@@ -19,6 +20,7 @@ class CreateContaBancariaUseCase {
     agencia,
     numero,
     dv,
+    collaboratorId,
   }: ICreateAddress) {
     try {
       const existingConta = await prisma.conta_bancaria.findFirst({
@@ -44,6 +46,7 @@ class CreateContaBancariaUseCase {
           agencia,
           numero,
           dv,
+          collaboratorId,
         },
       });
 

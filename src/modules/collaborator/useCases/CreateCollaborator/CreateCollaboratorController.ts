@@ -6,6 +6,7 @@ class CreateCollaboratorController {
     const {
       colaborador,
       salaoId,
+      conta_bancaria,
     } = request.body;
 
     try {
@@ -13,6 +14,7 @@ class CreateCollaboratorController {
       await createColaboradorUseCase.execute({
         colaborador,
         salaoId,
+        conta_bancaria,
       });
       return response.status(200).json({ message: 'Colaborador cadastrado com sucesso!' });
     } catch (error) {
