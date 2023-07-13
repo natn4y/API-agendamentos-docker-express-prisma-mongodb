@@ -4,6 +4,7 @@ interface ICreateAddress {
   colaboradorId: string;
   servicoId: string;
   status: string;
+  salaoId?: any;
 }
 
 class CreateCollaboratorServiceUseCase {
@@ -11,6 +12,7 @@ class CreateCollaboratorServiceUseCase {
     colaboradorId,
     servicoId,
     status,
+    salaoId,
   }: ICreateAddress) {
     try {
       const newColaboradorService = await prisma.collaborator_services.create({
@@ -18,6 +20,7 @@ class CreateCollaboratorServiceUseCase {
           colaboradorId,
           servicoId,
           status,
+          salaoId,
         },
       });
 

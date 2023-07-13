@@ -9,6 +9,7 @@ class CreateCollaboratorServiceController {
     const {
       colaboradorId,
       servicoId,
+      salaoId,
       status,
     } = request.body;
 
@@ -16,6 +17,7 @@ class CreateCollaboratorServiceController {
       await createCollaboratorServiceController.execute({
         colaboradorId,
         servicoId,
+        salaoId,
         status,
       });
 
