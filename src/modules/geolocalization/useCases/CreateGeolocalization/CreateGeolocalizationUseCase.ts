@@ -3,7 +3,7 @@ import { prisma } from '@database/prismaClient';
 interface ICreateSalao {
   tipo: string;
   coordinates: [];
-  salaoId: string;
+  salaoId?: any;
 }
 
 class CreateGeolocalizationUseCase {
