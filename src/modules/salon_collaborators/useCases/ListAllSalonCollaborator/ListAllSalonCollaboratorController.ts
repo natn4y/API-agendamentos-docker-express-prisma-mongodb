@@ -3,12 +3,10 @@ import { ListAllSalonColaboratorUseCase } from './ListAllSalonColaboratorUseCase
 
 class ListAllSalonCollaboratorController {
   async handle(request: Request, response: Response) {
-    const { salaoId } = request.params;
-
     const listAllSalonColaboratorUseCase = new ListAllSalonColaboratorUseCase();
 
     try {
-      const salons = await listAllSalonColaboratorUseCase.execute(salaoId);
+      const salons = await listAllSalonColaboratorUseCase.execute();
 
       return response.status(200).json(salons);
     } catch (error) {
