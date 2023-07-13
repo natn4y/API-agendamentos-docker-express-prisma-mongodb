@@ -8,11 +8,14 @@ const colaboradorRoutes = Router();
 const createColaboradorController = new CreateCollaboratorController();
 const alterarColaboradorController = new AlterarCollaboratorController();
 const filterColaboradorController = new FilterColaboradorController();
+//const deleteColaboradorController = new DeleteColaboradorController();
 
 colaboradorRoutes.post("/create", createColaboradorController.handle);
 
 colaboradorRoutes.put("/:colaboradorId", alterarColaboradorController.handle);
 
 colaboradorRoutes.post("/filter", filterColaboradorController.handle);
+
+//colaboradorRoutes.delete("/vinculo/:id", deleteColaboradorController.handle);
 
 export default colaboradorRoutes;

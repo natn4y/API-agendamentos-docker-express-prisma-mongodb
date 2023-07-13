@@ -9,14 +9,11 @@ const salaoRoutes = Router();
 const createSalaoController = new CreateSalonController();
 const listAllSalaoServicesController = new ListAllSalonServicesController();
 const listSalaoByIdController = new ListSalonByIdController();
-const alterarStatusSalonCollaboratorController = new AlterarStatusSalonCollaboratorController()
 
 salaoRoutes.post("/create", createSalaoController.handle);
 
 salaoRoutes.get('/services/:salaoId', listAllSalaoServicesController.handle);
 
 salaoRoutes.get('/:salaoId', listSalaoByIdController.handle);
-
-salaoRoutes.put('/:id', alterarStatusSalonCollaboratorController.handle);
 
 export default salaoRoutes;
