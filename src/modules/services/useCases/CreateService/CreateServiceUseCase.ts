@@ -1,7 +1,7 @@
 import { prisma } from '@database/prismaClient';
 
 interface ICreateService {
-  salaoId: string;
+  salaoId?: any;
   titulo: string;
   preco: number;
   comissao: number;
