@@ -10,7 +10,11 @@ class ListSalonByIdUseCase {
       select: {
         id: true,
         nome: true,
+        foto: true,
         capa: true,
+        email: true,
+        telefone: true,
+        enderecoId: true,
         geo: {
           select: {
             coordinates: true,
@@ -33,25 +37,33 @@ class ListSalonByIdUseCase {
       };
 
       const calculatedDistance = distance(salaoPoint, targetPoint);
-      const { id, nome, capa, geo } = salons;
+      const { id, nome, foto, capa, email, telefone, geo, enderecoId } = salons;
 
       response = {
         id,
         nome,
+        foto,
         capa,
+        email,
+        telefone,
         geo,
         distance: calculatedDistance,
+        enderecoId,
       };
     } else {
       // Lógica para lidar com o caso em que salons.geo.coordinates é nulo
-      const { id, nome, capa } = salons!;
+      const { id, nome, foto, capa, email, telefone, enderecoId } = salons!;
 
       response = {
         id,
         nome,
+        foto,
         capa,
+        email,
+        telefone,
         geo: null,
         distance: null,
+        enderecoId,
       };
     }
 

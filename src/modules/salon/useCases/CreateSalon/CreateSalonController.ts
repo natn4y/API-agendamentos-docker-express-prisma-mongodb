@@ -13,6 +13,7 @@ class CreateSalonController {
       telefone,
       dataCadastro,
       enderecoId,
+      endereco,
     } = request.body;
 
     try {
@@ -25,7 +26,7 @@ class CreateSalonController {
         senha,
         telefone,
         dataCadastro,
-        enderecoId,
+        endereco,
       });
       return response.status(200).json({ message: 'Salão cadastrado com sucesso!' });
     } catch (error) {

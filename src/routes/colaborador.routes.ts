@@ -15,11 +15,13 @@ const filterColaboradorController = new FilterColaboradorController();
 
 colaboradorRoutes.post("/create", createColaboradorController.handle);
 
-colaboradorRoutes.put("/:colaboradorId", alterarColaboradorController.handle);
+colaboradorRoutes.put("/:id", (req, res) => {
+  return res.json({
+    data: "Not implemented"
+  });
+});
 
 colaboradorRoutes.post("/filter", filterColaboradorController.handle);
-
-//colaboradorRoutes.post("/salao/:salaoId", asd.handle)
 
 
 export default colaboradorRoutes;

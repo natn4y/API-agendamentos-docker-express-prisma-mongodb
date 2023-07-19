@@ -8,7 +8,14 @@ interface ICreateSalao {
   senha: string;
   telefone: string;
   dataCadastro: string;
-  enderecoId: string;
+  endereco: {
+    pais: string;
+    numero: string;
+    cep: string;
+    uf: string;
+    cidade: string;
+    rua: string;
+  };
 }
 
 class CreateSalonUseCase {
@@ -20,7 +27,7 @@ class CreateSalonUseCase {
     senha,
     telefone,
     dataCadastro,
-    enderecoId,
+    endereco,
   }: ICreateSalao) {
     try {
       const salaoExist = await prisma.salons.findFirst({
@@ -33,10 +40,10 @@ class CreateSalonUseCase {
       });
 
       if (salaoExist) {
-        throw new Error("Salão already exists");
+        throw new Error('Salão already exists');
       }
 
-      const res = await prisma.salons.create({
+      const createdSalon = await prisma.salons.create({
         data: {
           nome,
           foto,
@@ -45,17 +52,38 @@ class CreateSalonUseCase {
           senha,
           telefone,
           dataCadastro,
-          enderecoId,
         },
       });
 
-      console.log(res);
+      const createdEndereco = await prisma.addresses.create({
+        data: {
+          cep: endereco.cep,
+          cidade: endereco.cidade,
+          numero: endereco.numero,
+          pais: endereco.pais,
+          rua: endereco.rua,
+          uf: endereco.uf,
+          salonId: createdSalon.id,
+        },
+      });
 
+      const updatedSalon = await prisma.salons.update({
+        where: {
+          id: createdSalon.id,
+        },
+        data: {
+          enderecoId: createdEndereco.id,
+        },
+      });
+
+      console.log(updatedSalon);
+
+      console.log(createdEndereco);
     } catch (error) {
       console.log(error);
-      throw new Error("Erro ao cadastrar Salão");
+      throw new Error('Erro ao cadastrar Salão');
     }
   }
 }
 
-export { CreateSalonUseCase }
+export { CreateSalonUseCase };
