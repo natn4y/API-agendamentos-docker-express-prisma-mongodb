@@ -5,8 +5,7 @@ export class AlterarHorarioController {
   async handle(request: Request, response: Response) {
     const { horarioId } = request.params;
     const { horario } = request.body;
-    console.log(horarioId);
-    console.log(horario);
+
     try {
       const alterarHorarioUseCase = new AlterarHorarioUseCase();
 
