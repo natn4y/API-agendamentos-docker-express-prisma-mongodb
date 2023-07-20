@@ -28,8 +28,8 @@ model Clients {
   nome           String
   telefone       String
   email          String
-  status         String  @default("A")
-  sexo           String  @default("M")
+  status         String  @default("Ativo")
+  sexo           String
   dataNascimento String
   foto           String
   senha          String
@@ -104,7 +104,7 @@ model Conta_bancaria {
   tipo           String
   agencia        String
   numero         String
-  dv             String  @default("M")
+  dv             String
   collaboratorId String? @map("colaboradorId")
 
   collaborator Collaborators? @relation(fields: [collaboratorId], references: [id])
@@ -116,7 +116,7 @@ model Recipient {
   id           String   @id @default(uuid()) @map("_id")
   dataCadastro DateTime @default(now())
 
-  collaborators Collaborators?
+  collaborators Collaborators? @relation(fields: [id], references: [id])
 
   @@map("recipient")
 }
@@ -147,17 +147,17 @@ model Services {
 }
 
 model Horario {
-  id               String   @id @default(uuid()) @map("_id")
-  salaoId          String
-  especialidadesId String[] @unique
-  colaboradoresId  String[] @unique
-  dias             Int[]
-  inicio           String
-  fim              String
+  id                String   @id @default(uuid()) @map("_id")
+  salaoId           String
+  especialidadesIds String[] @unique
+  colaboradoresIds  String[] @unique
+  dias              Int[]
+  inicio            String
+  fim               String
 
   salons         Salons        @relation("SalaoToHorario", fields: [salaoId], references: [id])
-  especialidades Services      @relation(fields: [especialidadesId], references: [id])
-  collaborators  Collaborators @relation(fields: [colaboradoresId], references: [id])
+  especialidades Services      @relation(fields: [especialidadesIds], references: [id])
+  collaborators  Collaborators @relation(fields: [colaboradoresIds], references: [id])
 
   @@map("horario")
 }
@@ -189,23 +189,24 @@ model Salons {
 
 //! -----> SALAO COLABORADOR
 model Collaborators {
-  id               String   @id @default(uuid()) @map("_id")
-  nome             String
-  telefone         String
-  email            String
-  senha            String
-  foto             String
-  dataNascimento   String
-  sexo             String   @default("M")
-  status           String   @default("A")
-  contaBancariaId  String   @unique
-  dataCadastro     DateTime @default(now())
-  recipientId      String   @unique
-  horarioId        String?
-  colaboradorId    String?
-  especialidadesId String[]
-  vinculo          String
-  vinculoId        String?
+  id                String   @id @default(uuid()) @map("_id")
+  nome              String
+  telefone          String
+  email             String
+  senha             String
+  foto              String
+  dataNascimento    String
+  sexo              String
+  status            String   @default("Ativo")
+  contaBancariaId   String   @unique
+  dataCadastro      DateTime @default(now())
+  recipientId       String?
+  horarioId         String?
+  colaboradorId     String?
+  especialidadesIds String[]
+  vinculo           String
+  vinculoId         String?
+  salaoId           String?
 
   salon_collaborators   salon_collaborators[]
   collaborator_services Collaborator_services[]
@@ -214,7 +215,7 @@ model Collaborators {
   relationships  Relationships? @relation(fields: [vinculoId], references: [id])
   especialidades Services[]
   horario        Horario?
-  recipient      Recipient      @relation(fields: [recipientId], references: [id])
+  recipient      Recipient?
 
   conta_bancaria Conta_bancaria[]
 

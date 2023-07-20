@@ -9,11 +9,11 @@ export class AlterarCollaboratorController {
       const {
         vinculo,
         vinculoId,
-        especialidadesId,
+        especialidadesIds,
       }: {
         vinculo: string;
         vinculoId: string;
-        especialidadesId: string[];
+        especialidadesIds: string[];
       } = request.body;
 
       const alterarSalonColaboradorUseCase = new AlterarSalonColaboradorUseCase();
@@ -22,7 +22,7 @@ export class AlterarCollaboratorController {
         colaboradorId,
         vinculo,
         vinculoId,
-        especialidadesId,
+        especialidadesIds,
       });
 
       return response.status(200).json({ message: 'success!' });

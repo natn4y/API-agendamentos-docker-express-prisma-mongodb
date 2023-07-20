@@ -6,6 +6,8 @@ interface ICreateClient {
   nome: string;
   senha: string;
   dataNascimento: string;
+  status: string;
+  sexo: string;
   email: string;
   foto: string;
   telefone: string;
@@ -33,6 +35,8 @@ class CreateClientUseCase {
     email,
     foto,
     telefone,
+    status,
+    sexo,
     enderecoId,
     documentoId,
     endereco,
@@ -64,6 +68,8 @@ class CreateClientUseCase {
           telefone,
           documentoId,
           enderecoId,
+          status,
+          sexo,
         },
       });
 

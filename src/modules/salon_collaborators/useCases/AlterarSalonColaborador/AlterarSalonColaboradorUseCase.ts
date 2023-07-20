@@ -4,7 +4,7 @@ interface IAlterarColaborador {
   colaboradorId: string;
   vinculo: string;
   vinculoId: string;
-  especialidadesId: string[];
+  especialidadesIds: string[];
 }
 
 export class AlterarSalonColaboradorUseCase {
@@ -12,7 +12,7 @@ export class AlterarSalonColaboradorUseCase {
     colaboradorId,
     vinculo,
     vinculoId,
-    especialidadesId
+    especialidadesIds
   }: IAlterarColaborador) {
     await prisma.salon_collaborators.update({
       where: {
@@ -29,7 +29,7 @@ export class AlterarSalonColaboradorUseCase {
       }
     });
 
-    const colaboradorServicos = especialidadesId.map((especialidade) => ({
+    const colaboradorServicos = especialidadesIds.map((especialidade) => ({
       colaboradorId,
       servicoId: especialidade,
       status: "ativo",

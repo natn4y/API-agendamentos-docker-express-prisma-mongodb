@@ -5,8 +5,8 @@ export class CreateHorarioController {
   async handle(request: Request, response: Response) {
     const {
       salaoId,
-      especialidades,
-      collaborators,
+      especialidadesIds,
+      colaboradoresIds,
       dias,
       inicio,
       fim,
@@ -17,14 +17,14 @@ export class CreateHorarioController {
 
       await createHorarioUseCase.execute({
         salaoId,
-        especialidades,
-        collaborators,
+        especialidadesIds,
+        colaboradoresIds,
         dias,
         inicio,
         fim,
       });
 
-      console.log(createHorarioUseCase);
+      //console.log(createHorarioUseCase);
 
       return response.status(200).json({ error: 'Horário cadastrado com sucesso!' });
     } catch (error) {

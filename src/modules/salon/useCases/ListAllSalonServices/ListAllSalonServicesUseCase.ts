@@ -6,7 +6,7 @@ class ListAllSalonServiceUseCase {
     const services = await prisma.services.findMany({
       where: {
         status: {
-          equals: 'A',
+          equals: 'Ativo',
           mode: 'insensitive',
         },
         salaoId: {

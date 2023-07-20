@@ -76,9 +76,9 @@ class CreateSalonUseCase {
         },
       });
 
-      console.log(updatedSalon);
+      //console.log(updatedSalon);
 
-      console.log(createdEndereco);
+      //console.log(createdEndereco);
     } catch (error) {
       console.log(error);
       throw new Error('Erro ao cadastrar Salão');

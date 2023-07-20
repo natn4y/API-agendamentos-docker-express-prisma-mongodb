@@ -14,6 +14,8 @@ class CreateClientController {
       telefone,
       endereco,
       documment,
+      status,
+      sexo,
     } = request.body;
 
     try {
@@ -26,6 +28,8 @@ class CreateClientController {
         telefone,
         endereco,
         documment,
+        status,
+        sexo,
       });
 
       return response.status(200).json({ message: 'Cliente cadastrado com sucesso!' });

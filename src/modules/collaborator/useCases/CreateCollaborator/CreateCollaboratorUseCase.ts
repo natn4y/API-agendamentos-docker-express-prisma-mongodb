@@ -14,7 +14,7 @@ interface ICreateSalao {
     dataCadastro: Date;
     recipientId: string;
     horarioId: string;
-    especialidadesId: string[];
+    especialidadesIds: string[];
     vinculo: string;
     vinculoId: string;
   };
@@ -68,6 +68,7 @@ class CreateCollaboratorUseCase {
         data: {
           ...colaborador,
           contaBancariaId: '', // Para limpar o valor existente, se houver
+          salaoId: salaoId,
         },
       });
 
@@ -123,7 +124,7 @@ class CreateCollaboratorUseCase {
         })
       }
 
-      console.log(existentRelationShip);
+      //console.log(existentRelationShip);
 
       //!if (existentCollaborator) - #03 - Finalizando Back-end com NodeJS e
       //!MongoDB - SE JÁ EXISTIR UM VINCULO ENTRE COLABORADOR E SALÃO: 42:48
@@ -132,7 +133,7 @@ class CreateCollaboratorUseCase {
 
 
       await prisma.collaborator_services.createMany({
-        data: colaborador.especialidadesId.map(servicoId => ({
+        data: colaborador.especialidadesIds.map(servicoId => ({
           salaoId,
           servicoId,
           colaboradorId: collaboratorId,

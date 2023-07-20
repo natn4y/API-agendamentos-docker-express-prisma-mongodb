@@ -2,7 +2,6 @@ import { prisma } from '@database/prismaClient';
 
 class ListSalonByIDAndStatusNotEorExcluidoUseCase {
   async execute(salaoId: any) {
-    const listColaboradores = []; // Complete com a lógica para preencher a lista de colaboradores
     try {
       const salon = await prisma.salon_collaborators.findFirst({
         where: {
@@ -17,9 +16,11 @@ class ListSalonByIDAndStatusNotEorExcluidoUseCase {
         }
       });
 
+      console.log(salon);
+
       const collaborators = await prisma.collaborators.findMany({
         where: {
-          id: salon?.colaboradorId
+          salaoId: salon?.salaoId
         },
         select: {
           id: true,
@@ -33,16 +34,16 @@ class ListSalonByIDAndStatusNotEorExcluidoUseCase {
           status: true,
           conta_bancaria: false,
           dataCadastro: true,
-          recipientId: true,
+          recipientId: false,
           horarioId: true,
           colaboradorId: false,
-          especialidadesId: true,
+          especialidadesIds: true,
           vinculo: false,
           vinculoId: true,
         }
       });
 
-      const especialidadesIdList = collaborators.map((collaborator) => collaborator.especialidadesId);
+      const especialidadesIdList = collaborators.map((collaborator) => collaborator.especialidadesIds);
 
       console.log(especialidadesIdList);
 
@@ -56,7 +57,7 @@ class ListSalonByIDAndStatusNotEorExcluidoUseCase {
           foto: true,
           capa: true,
           email: true,
-          senha: true,
+          senha: false,
           telefone: true,
           dataCadastro: true,
           enderecoId: true,
