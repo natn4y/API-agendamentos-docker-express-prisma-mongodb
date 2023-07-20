@@ -37,7 +37,7 @@ model Clients {
   enderecoId     String?
 
   salaoClient  salao_Clientes[]
-  agendamentos Agendamentos[]
+  agendamento Agendamento?
 
   Documents Documents[]
   Addresses Addresses[]
@@ -136,7 +136,7 @@ model Services {
   dataCadastro          DateTime                @default(now())
   horarioId             String?
   collaborator_services Collaborator_services[]
-  agendamentos          Agendamentos?
+  agendamento          Agendamento?
 
   salons          Salons         @relation("SalaoToServico", fields: [salaoId], references: [id])
   horario         Horario?
@@ -175,7 +175,7 @@ model Salons {
   enderecoId          String?               @unique @default(uuid())
   salon_collaborators salon_collaborators[]
   salaoClient         salao_Clientes[]
-  agendamentos        Agendamentos?
+  agendamento        Agendamento?
 
   geo Geolocalizations?
 
@@ -210,7 +210,7 @@ model Collaborators {
 
   salon_collaborators   salon_collaborators[]
   collaborator_services Collaborator_services[]
-  agendamentos          Agendamentos?
+  agendamento          Agendamento?
 
   relationships  Relationships? @relation(fields: [vinculoId], references: [id])
   especialidades Services[]
@@ -270,7 +270,7 @@ model salao_Clientes {
 
 //! -----> AGENDAMENTO
 
-model Agendamentos {
+model Agendamento {
   id            String   @id @default(uuid()) @map("_id")
   salaoId       String   @unique
   clientId      String   @unique
@@ -288,5 +288,5 @@ model Agendamentos {
   services      Services      @relation(fields: [servicoId], references: [id])
   collaborators Collaborators @relation(fields: [colaboradorId], references: [id])
 
-  @@map("agendamentos")
+  @@map("agendamento")
 }
