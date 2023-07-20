@@ -28,7 +28,7 @@ export class CreateHorarioController {
 
       return response.status(200).json({ error: 'Horário cadastrado com sucesso!' });
     } catch (error) {
-      return response.status(409).json({ error: 'Horário já existe' });
+      return response.status(409).json({ error: 'esses colaboradores já estão cadastrados para esse horário' });
     }
   }
 }
