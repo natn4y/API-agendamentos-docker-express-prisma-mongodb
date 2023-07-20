@@ -14,9 +14,9 @@ interface ICreateSalao {
     dataCadastro: Date;
     recipientId: string;
     horarioId: string;
-    especialidadesIds: string[];
     vinculo: string;
     vinculoId: string;
+    especialidadesIds: string[];
   };
   conta_bancaria: {
     titular: string;
