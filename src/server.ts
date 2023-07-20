@@ -27,6 +27,7 @@ import DocumentsRoute from './routes/documents.routes';
 import AddressRoutes from './routes/address.routes';
 import ContaBancariaRoutes from './routes/contabancaria.routes';
 import ColaboradorServicesRoutes from './routes/colaboradorservices.routes';
+import AgendamentoRoutes from '@routes/agendamento.routes';
 
 const app = express();
 
@@ -45,6 +46,7 @@ app.use("/document", DocumentsRoute);
 app.use("/address", AddressRoutes);
 app.use("/contabancaria", ContaBancariaRoutes);
 app.use("/colaboradorservices", ColaboradorServicesRoutes);
+app.use("/agendamento", AgendamentoRoutes);
 
 app.get('/', (req: Request, res: Response) => {
   return res.json({

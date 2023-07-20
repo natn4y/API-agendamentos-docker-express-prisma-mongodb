@@ -16,6 +16,7 @@ interface ICreateSalao {
     cidade: string;
     rua: string;
   };
+  recipientId: string;
 }
 
 class CreateSalonUseCase {
@@ -28,6 +29,7 @@ class CreateSalonUseCase {
     telefone,
     dataCadastro,
     endereco,
+    recipientId,
   }: ICreateSalao) {
     try {
       const salaoExist = await prisma.salons.findFirst({
@@ -52,6 +54,7 @@ class CreateSalonUseCase {
           senha,
           telefone,
           dataCadastro,
+          recipientId,
         },
       });
 
