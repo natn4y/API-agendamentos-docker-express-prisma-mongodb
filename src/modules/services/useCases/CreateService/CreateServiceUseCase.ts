@@ -6,7 +6,7 @@ interface ICreateService {
   preco: number;
   comissao: number;
   recorrencia: number;
-  duracao: number;
+  duracao: string;
   descricao: string;
   status: string;
   dataCadastro: Date;

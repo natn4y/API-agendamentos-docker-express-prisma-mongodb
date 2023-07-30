@@ -161,7 +161,7 @@ model Services {
   preco                 Int
   comissao              Float // % de comissão sobre o preço
   recorrencia           Int // Período de refação do serviço em dias
-  duracao               Int // Duração em minutos
+  duracao               String // Duração em minutos
   descricao             String
   status                String
   dataCadastro          DateTime                @default(now())
@@ -180,7 +180,7 @@ model Horario {
   id                String   @id @default(uuid()) @map("_id")
   salaoId           String
   especialidadesIds String[]
-  colaboradoresIds  String[] @unique
+  colaboradoresIds  String[]
   dias              Int[]
   inicio            String
   fim               String

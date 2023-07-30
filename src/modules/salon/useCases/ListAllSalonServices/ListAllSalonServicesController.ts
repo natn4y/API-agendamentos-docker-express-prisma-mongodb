@@ -4,6 +4,7 @@ import { ListAllSalonServiceUseCase } from './ListAllSalonServicesUseCase';
 class ListAllSalonServicesController {
   async handle(request: Request, response: Response) {
     const { salaoId } = request.params;
+
     const listAllSalonServicesUseCase = new ListAllSalonServiceUseCase();
 
     try {
