@@ -2,18 +2,12 @@ import { prisma } from '@database/prismaClient'
 import { Request, Response } from 'express'
 import moment from 'moment'
 import _ from 'lodash'
-import {
-  hourToMinutes,
-  mergeDataTime,
-  sliceMinutes,
-  slipByValue,
-} from '../../../../util/convert'
 
 export class DiasDisponiveisController {
   async handle(request: Request, response: Response) {
-    let SLOT_DURATION = 30
-
     try {
+      let SLOT_DURATION = 30
+
       const { data, salaoId, servicoId } = request.body
 
       const horarios = await prisma.horario.findMany({
@@ -62,14 +56,20 @@ export class DiasDisponiveisController {
           // Adicionando horários em intervalos de 30 minutos de 07:00 às 12:30
           let times: string[] = []
           while (date.hour() < 13) {
-            times.push(date.format('HH:mm'))
-            date.add(30, 'minutes')
+            try {
+              times.push(date.format('HH:mm'))
+              date.add(30, 'minutes')
+            } catch (error) {
+              console.log(error)
+            }
           }
 
           // Dividir horários em grupos de 2
           dateEntry.times = _.chunk(times, 2)
 
           dates.push(dateEntry)
+
+          console.log(dateEntry)
 
           // Ajuste a hora para o início do próximo dia
           date.add(1, 'day').hour(7).minute(0)

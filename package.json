@@ -4,7 +4,7 @@
   "description": "",
   "main": "src/server.ts",
   "scripts": {
-    "start": "docker-compose up & nodemon src/server.ts",
+    "start": "docker-compose up & fuser -k 8000/tcp & nodemon src/server.ts",
     "dev": "nodemon src/server.ts",
     "prisma:generate": "prisma generate",
     "build": "sudo docker-compose build"
