@@ -1,14 +1,14 @@
-import { prisma } from '@database/prismaClient';
-import moment from 'moment';
+import { prisma } from '@database/prismaClient'
+import moment from 'moment'
 
 interface IPeriodo {
-  inicio: Date;
-  final: Date;
+  inicio: Date
+  final: Date
 }
 
 interface IFilterAgendamento {
-  periodo: IPeriodo;
-  salaoId: string;
+  periodo: IPeriodo
+  salaoId: string
 }
 
 export class FilterAgendamentoUseCase {
@@ -18,9 +18,15 @@ export class FilterAgendamentoUseCase {
         status: 'Ativo',
         salaoId,
         data: {
-          gte: moment(periodo.inicio).startOf('day').toDate(),
-          lte: moment(periodo.final).endOf('day').toDate(),
-        }
+          gte: moment(periodo.inicio)
+            .startOf('day')
+            .toDate()
+            .toISOString(),
+          lte: moment(periodo.final)
+            .endOf('day')
+            .toDate()
+            .toISOString(),
+        },
       },
       select: {
         salaoId: true,
@@ -31,9 +37,9 @@ export class FilterAgendamentoUseCase {
         data: true,
         comissao: true,
         valor: true,
-      }
-    });
+      },
+    })
 
-    return agendamento;
+    return agendamento
   }
 }

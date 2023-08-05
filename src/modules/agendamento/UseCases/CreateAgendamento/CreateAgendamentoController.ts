@@ -1,7 +1,6 @@
 import { Request, Response } from 'express'
 import { prisma } from '@database/prismaClient'
 import { toCent } from '../../../../util/convert'
-
 import { CreateAgendamentoUseCase } from './CreateAgendamentoUseCase'
 
 export class CreateAgendamentoController {
@@ -31,7 +30,7 @@ export class CreateAgendamentoController {
         },
       })
 
-      const salon = await prisma.clients.findFirst({
+      const salon = await prisma.salons.findFirst({
         where: {
           id: salaoId,
         },
@@ -67,7 +66,7 @@ export class CreateAgendamentoController {
 
       // IMPLEMENTAR PAGAMENTO
 
-      await createAgendamentoUseCase.execute(
+      await createAgendamentoUseCase.execute({
         clientId,
         salaoId,
         servicoId,
@@ -77,7 +76,7 @@ export class CreateAgendamentoController {
         comissao,
         valor,
         transactionId,
-      )
+      })
 
       response
         .status(200)

@@ -6,15 +6,12 @@ import _ from 'lodash'
 export class DiasDisponiveisController {
   async handle(request: Request, response: Response) {
     try {
-      let SLOT_DURATION = 30
+      const SLOT_DURATION = 30
+      const START_HOUR = 9
+      const END_HOUR = 18
+      const END_MINUTE = 30
 
       const { data, salaoId, servicoId } = request.body
-
-      const horarios = await prisma.horario.findMany({
-        where: {
-          salaoId: salaoId,
-        },
-      })
 
       const service = await prisma.services.findFirst({
         where: {
@@ -25,74 +22,91 @@ export class DiasDisponiveisController {
         },
       })
 
-      let agenda = [] as any
-      let colaboradores: any[] = []
+      const agendamentos =
+        await prisma.agendamento.findMany()
 
-      interface DateEntry {
-        date: string
-        times: string[][]
-      }
+      const agendamentoTimes = agendamentos.map(
+        agendamento => {
+          return {
+            date: moment(agendamento.data).format(
+              'YYYY-MM-DD',
+            ),
+            time: moment(agendamento.data).format('HH:mm'),
+          }
+        },
+      )
 
       const generateDates = (
         year: number,
         month: number,
-      ): DateEntry[] => {
+      ): any[] => {
         let date = moment({
           year: year,
           month: month - 1,
           day: 1,
-          hour: 7,
+          hour: START_HOUR,
           minute: 0,
         })
         let endOfMonth = moment(date).endOf('month')
-        let dates: DateEntry[] = []
+        let dates: any[] = []
 
         while (date <= endOfMonth) {
-          let dateEntry: DateEntry = {
-            date: date.format('YYYY-MM-DD'),
-            times: [],
-          }
-
-          // Adicionando horários em intervalos de 30 minutos de 07:00 às 12:30
           let times: string[] = []
-          while (date.hour() < 13) {
-            try {
-              times.push(date.format('HH:mm'))
-              date.add(30, 'minutes')
-            } catch (error) {
-              console.log(error)
+          while (
+            date.hour() < END_HOUR ||
+            (date.hour() === END_HOUR &&
+              date.minute() < END_MINUTE) ||
+            (date.hour() === END_HOUR &&
+              date.minute() === END_MINUTE)
+          ) {
+            let time = date.format('HH:mm')
+            // Checks if there is an appointment at the current date and time
+            if (
+              !agendamentoTimes.some(
+                agendamentoTime =>
+                  agendamentoTime.date ===
+                    date.format('YYYY-MM-DD') &&
+                  agendamentoTime.time === time,
+              )
+            ) {
+              times.push(time)
             }
+            date.add(SLOT_DURATION, 'minutes')
           }
-
-          // Dividir horários em grupos de 2
-          dateEntry.times = _.chunk(times, 2)
-
-          dates.push(dateEntry)
-
-          console.log(dateEntry)
-
-          // Ajuste a hora para o início do próximo dia
-          date.add(1, 'day').hour(7).minute(0)
+          dates.push({
+            date: date
+              .clone()
+              .startOf('day')
+              .format('YYYY-MM-DD'),
+            times: times,
+          })
+          date
+            .startOf('day')
+            .add(1, 'day')
+            .hour(START_HOUR)
+            .minute(0)
         }
         return dates
       }
 
-      let dates = generateDates(2023, 7)
+      let currentDate = moment()
+      let dates = generateDates(
+        currentDate.year(),
+        currentDate.month() + 1,
+      )
 
       const entries = dates.map(entry => {
         return {
           salaoId,
           date: entry.date,
-          times: entry.times,
+          times: _.chunk(entry.times, 2), // Now chunk the times
         }
       })
 
-      // Adiciona as entradas à agenda
-      agenda = [...entries]
+      let agenda: any[] = [...entries]
 
       return response.status(200).json({
         agenda,
-        colaboradores,
       })
     } catch (error) {
       console.error(error)

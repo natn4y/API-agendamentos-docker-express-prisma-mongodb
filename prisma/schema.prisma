@@ -281,7 +281,7 @@ model Agendamento {
   colaboradorId String
   status        String
   dataCadastro  DateTime @default(now())
-  data          DateTime
+  data          String
   comissao      Float
   valor         Float
   transactionId String
